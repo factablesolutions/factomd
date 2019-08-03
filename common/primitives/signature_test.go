@@ -49,6 +49,16 @@ func TestMarshalUnmarshalSignature(t *testing.T) {
 	if len(rest) != 2 {
 		t.Errorf("Invalid rest - %x", rest)
 	}
+
+	if AreBytesEqual(sig.GetPubBytes(), sig.Pub[:]) == false {
+		t.Errorf("Bad public key detected")
+	}
+	if AreBytesEqual(sig.GetSigBytes(), sig.Sig[:]) == false {
+		t.Errorf("Bad signature")
+	}
+	if AreBytesEqual(sig.GetSigBytes(), sig.Bytes()) == false {
+		t.Errorf("Bad GetBytes")
+	}
 }
 
 // TestVerifySignature checks that a properly signed message is recognized as such
